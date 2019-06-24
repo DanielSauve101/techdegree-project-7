@@ -59,6 +59,7 @@
                         {% else %}
                             <!-- view profile link here? -->
                             <!-- edit profile link here? -->
+                            <li><a href="{% url 'accounts:create_profile' %}">Create Profile</a></li>
                             <li><a href="{% url 'accounts:sign_out' %}">Sign Out</a></li>
                         {% endif %}
                     </ul>

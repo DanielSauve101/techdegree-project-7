@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+
+from . import forms
 
 
 def sign_in(request):
@@ -57,6 +58,15 @@ def sign_out(request):
     return HttpResponseRedirect(reverse('home'))
 
 
-@login_required
 def create_profile(request):
-    pass
+    form = forms.ProfileForm()
+    if request.method == 'POST':
+        form = forms.ProfileForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 'Profile added!')
+            return HttpResponseRedirect(reverse('home'))
+    return render(request, 'accounts/profile_form.html', {'form': form})
