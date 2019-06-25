@@ -73,10 +73,11 @@ def create_profile(request):
     return render(request, 'accounts/profile_form.html', {'form': form})
 
 
-def profile_detail(request, pk):
+def view_profile(request, pk):
     user = get_object_or_404(models.User, pk=pk)
     profile = get_object_or_404(models.Profile, user=user)
-    return render(request, 'accounts/profile_detail.html', {
-        'profile': profile,
-        'user': user
-    })
+    return render(request, 'accounts/view_profile.html', {'profile': profile})
+
+
+def edit_profile(request, pk):
+    pass
