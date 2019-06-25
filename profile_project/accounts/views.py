@@ -3,9 +3,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from . import forms
+from . import models
 
 
 def sign_in(request):
@@ -70,3 +71,12 @@ def create_profile(request):
                                  'Profile added!')
             return HttpResponseRedirect(reverse('home'))
     return render(request, 'accounts/profile_form.html', {'form': form})
+
+
+def profile_detail(request, pk):
+    user = get_object_or_404(models.User, pk=pk)
+    profile = get_object_or_404(models.Profile, user=user)
+    return render(request, 'accounts/profile_detail.html', {
+        'profile': profile,
+        'user': user
+    })

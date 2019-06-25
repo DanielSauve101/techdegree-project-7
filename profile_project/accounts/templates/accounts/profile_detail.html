@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}Profile Detail{% endblock %}
+
+{% block body %}
+<div class="">
+  <li>First Name: {{ user.profile.first_name }}</li>
+  <li>Last Name: {{ user.profile.last_name }}</li>
+  <li>Email: {{ user.profile.email }}</li>
+  <li>Date of Birth: {{ user.profile.date_of_birth }}</li>
+  <li>Biography: {{ user.profile.bio }}</li>
+  <li>Avatar: {{ user.profile.avatar }}</li>
+</div>
+
+{% endblock %}

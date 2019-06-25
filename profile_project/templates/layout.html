@@ -42,25 +42,16 @@
                                                       href="{% url 'home' %}">Circle</a>
                 </h1>
             </div>
-            <div class="circle--fluid--cell circle--fluid--primary">
-                <nav>
-                    <ul class="circle--inline">
-                        <li><a href="#">nav</a></li>
-                        <li><a href="#">here?</a></li>
-                    </ul>
-                </nav>
-            </div>
             <div class="circle--fluid--cell circle--fluid--secondary">
                 <nav>
                     <ul class="circle--inline">
-                        {% if not user.is_authenticated %}
-                            <li><a href="{% url 'accounts:sign_up' %}">Sign Up</a></li>
-                            <li><a href="{% url 'accounts:sign_in' %}">Sign In</a></li>
+                        {% if user.is_authenticated %}
+                          <li><a href="{% url 'accounts:create_profile' %}">Create Profile</a></li>
+                          <li><a href="{% url 'accounts:profile_detail' pk=user.pk %}">Profile Detail</a></li>
+                          <li><a href="{% url 'accounts:sign_out' %}">Sign Out</a></li>
                         {% else %}
-                            <!-- view profile link here? -->
-                            <!-- edit profile link here? -->
-                            <li><a href="{% url 'accounts:create_profile' %}">Create Profile</a></li>
-                            <li><a href="{% url 'accounts:sign_out' %}">Sign Out</a></li>
+                          <li><a href="{% url 'accounts:sign_up' %}">Sign Up</a></li>
+                          <li><a href="{% url 'accounts:sign_in' %}">Sign In</a></li>
                         {% endif %}
                     </ul>
                 </nav>

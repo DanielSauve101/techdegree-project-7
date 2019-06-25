@@ -10,7 +10,7 @@ class Profile(models.Model):
     email = models.EmailField(unique=True)
     date_of_birth = models.DateField()
     bio = models.TextField()
-    avatar = models.ImageField(upload_to='/images', blank=True)
+    avatar = models.ImageField(upload_to='images/', blank=True)
 
     def __str__(self):
         return self.first_name
