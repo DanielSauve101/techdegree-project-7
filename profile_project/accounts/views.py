@@ -88,5 +88,5 @@ def edit_profile(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, 'Updated profile successfully!')
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(profile.get_absolute_url())
     return render(request, 'accounts/profile_form.html', {'form': form})
