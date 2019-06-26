@@ -67,8 +67,7 @@ def create_profile(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
-            messages.add_message(request, messages.SUCCESS,
-                                 'Profile added!')
+            messages.success(request, 'Profile added!')
             return HttpResponseRedirect(reverse('home'))
     return render(request, 'accounts/profile_form.html', {'form': form})
 
@@ -80,4 +79,14 @@ def view_profile(request, pk):
 
 
 def edit_profile(request, pk):
-    pass
+    user = get_object_or_404(models.User, pk=pk)
+    profile = get_object_or_404(models.Profile, user=user)
+    form = forms.ProfileForm(instance=profile)
+
+    if request.method == 'POST':
+        form = forms.ProfileForm(instance=profile, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Updated profile successfully!')
+            return HttpResponseRedirect(reverse('home'))
+    return render(request, 'accounts/profile_form.html', {'form': form})
