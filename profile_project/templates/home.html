@@ -1,8 +1,22 @@
 {% extends 'layout.html' %}
 {% block body %}
     <div class="grid-75">
+      {% if not user.is_authenticated %}
         <h1>Welcome to the Profile Project!</h1>
-          <li>{{ user.profile.last_name }}</li>
-        <p>Sign up to create a profile or sign back in to view your profile.</p>
+        <p>Sign up to create a profile or sign in to view your profile.</p>
+      {% else %}
+        {% if user.profile %}
+          <h1>Welcome {{ user.profile }} to your profile.</h1>
+          <ul>
+            <li>First Name: {{ user.profile.first_name }}</li>
+            <li>Last Name: {{ user.profile.last_name }}</li>
+            <li><a href="{% url 'accounts:view_profile' pk=user.pk %}">View Full Profile</a></li>
+            <img class="" src="{{ user.profile.avatar.url }}">
+          </ul>
+        {% else %}
+          <h1>Welcom {{ user }}!</h1>
+          <p>Create a profile to view.</p>
+        {% endif %}
+      {% endif %}
     </div>
 {% endblock %}
