@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 {% block body %}
     <div class="grid-75">
-        <h1>Welcome to your profile page!</h1>
-        <p></p>
+        <h1>Welcome to the Profile Project!</h1>
+          <li>{{ user.profile.last_name }}</li>
+        <p>Sign up to create a profile or sign back in to view your profile.</p>
     </div>
 {% endblock %}

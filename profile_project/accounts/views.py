@@ -62,7 +62,7 @@ def sign_out(request):
 def create_profile(request):
     form = forms.ProfileForm()
     if request.method == 'POST':
-        form = forms.ProfileForm(request.POST)
+        form = forms.ProfileForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
@@ -84,7 +84,7 @@ def edit_profile(request, pk):
     form = forms.ProfileForm(instance=profile)
 
     if request.method == 'POST':
-        form = forms.ProfileForm(instance=profile, data=request.POST)
+        form = forms.ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Updated profile successfully!')
