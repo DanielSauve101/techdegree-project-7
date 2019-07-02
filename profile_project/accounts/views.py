@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -61,6 +61,7 @@ def sign_out(request):
 
 def create_profile(request):
     form = forms.ProfileForm()
+
     if request.method == 'POST':
         form = forms.ProfileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -90,3 +91,24 @@ def edit_profile(request, pk):
             messages.success(request, 'Updated profile successfully!')
             return HttpResponseRedirect(profile.get_absolute_url())
     return render(request, 'accounts/profile_form.html', {'form': form})
+
+
+def user_password_change(request, pk):
+    user = get_object_or_404(models.User, pk=pk)
+    form = PasswordChangeForm(user)
+    if request.method == 'POST':
+        form = PasswordChangeForm(user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            user = authenticate(
+                username=user.username,
+                password=form.cleaned_data['new_password1']
+            )
+            login(request, user)
+
+            messages.success(
+                request,
+                "Password has been changed successfully."
+            )
+            return HttpResponseRedirect(reverse('home'))  # TODO: go to profile
+    return render(request, 'accounts/password_change.html', {'form': form})
