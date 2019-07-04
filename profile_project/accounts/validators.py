@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 class DuplicatePasswordValidator(object):
     def validate(self, password, user=None):
         new_password = password_changed(password)
-        if not password_changed():
+        if not new_password:
             raise ValidationError(
                 _("Your password must be different from old password"),
                 code='password_no_change',
