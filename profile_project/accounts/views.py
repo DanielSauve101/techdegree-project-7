@@ -93,7 +93,7 @@ def edit_profile(request, pk):
     return render(request, 'accounts/profile_form.html', {'form': form})
 
 
-def user_password_change(request, pk):
+def edit_password(request, pk):
     user = get_object_or_404(models.User, pk=pk)
     form = PasswordChangeForm(user)
     if request.method == 'POST':
@@ -110,5 +110,5 @@ def user_password_change(request, pk):
                 request,
                 "Password has been changed successfully."
             )
-            return HttpResponseRedirect(reverse('home'))  # TODO: go to profile
-    return render(request, 'accounts/password_change.html', {'form': form})
+            return HttpResponseRedirect(reverse('home'))
+    return render(request, 'accounts/edit_password.html', {'form': form})

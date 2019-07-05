@@ -48,7 +48,7 @@
                         {% if user.profile %}
                           <li><a href="{% url 'accounts:view_profile' pk=user.pk %}">View Profile</a></li>
                           <li><a href="{% url 'accounts:edit_profile' pk=user.pk %}">Edit Profile</a></li>
-                          <li><a href="{% url 'accounts:password_change' pk=user.pk %}">Change Password</a></li>
+                          <li><a href="{% url 'accounts:edit_password' pk=user.pk %}">Change Password</a></li>
                         {% endif %}
                     </ul>
                 </nav>
