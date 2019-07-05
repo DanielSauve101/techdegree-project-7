@@ -19,7 +19,7 @@ def sign_in(request):
                 if user.is_active:
                     login(request, user)
                     return HttpResponseRedirect(
-                        reverse('home')  # TODO: go to profile
+                        reverse('home')
                     )
                 else:
                     messages.error(
@@ -49,7 +49,7 @@ def sign_up(request):
                 request,
                 "You're now a user! You've been signed in, too."
             )
-            return HttpResponseRedirect(reverse('home'))  # TODO: go to profile
+            return HttpResponseRedirect(reverse('home'))
     return render(request, 'accounts/sign_up.html', {'form': form})
 
 
