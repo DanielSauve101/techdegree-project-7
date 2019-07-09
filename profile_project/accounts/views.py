@@ -10,6 +10,7 @@ from . import models
 
 
 def sign_in(request):
+    """View to let the user sign in."""
     form = AuthenticationForm()
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -35,6 +36,7 @@ def sign_in(request):
 
 
 def sign_up(request):
+    """View to let a user create an account and then signs them in."""
     form = UserCreationForm()
     if request.method == 'POST':
         form = UserCreationForm(data=request.POST)
@@ -54,12 +56,14 @@ def sign_up(request):
 
 
 def sign_out(request):
+    """View that signs the user out."""
     logout(request)
     messages.success(request, "You've been signed out. Come back soon!")
     return HttpResponseRedirect(reverse('home'))
 
 
 def create_profile(request):
+    """View that lets the user create a profile."""
     form = forms.ProfileForm()
 
     if request.method == 'POST':
@@ -74,12 +78,14 @@ def create_profile(request):
 
 
 def view_profile(request, pk):
+    """View to let the user view the full details of there profile."""
     user = get_object_or_404(models.User, pk=pk)
     profile = get_object_or_404(models.Profile, user=user)
     return render(request, 'accounts/view_profile.html', {'profile': profile})
 
 
 def edit_profile(request, pk):
+    """View that allows the user to edit there profile."""
     user = get_object_or_404(models.User, pk=pk)
     profile = get_object_or_404(models.Profile, user=user)
     form = forms.ProfileForm(instance=profile)
@@ -94,8 +100,10 @@ def edit_profile(request, pk):
 
 
 def edit_password(request, pk):
+    """View that lets the user edit there password."""
     user = get_object_or_404(models.User, pk=pk)
     form = PasswordChangeForm(user)
+
     if request.method == 'POST':
         form = PasswordChangeForm(user, data=request.POST)
         if form.is_valid():
@@ -105,7 +113,6 @@ def edit_password(request, pk):
                 password=form.cleaned_data['new_password1']
             )
             login(request, user)
-
             messages.success(
                 request,
                 "Password has been changed successfully."
