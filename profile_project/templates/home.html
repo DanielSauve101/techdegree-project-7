@@ -7,15 +7,14 @@
       {% else %}
         {% if user.profile %}
           <h1>Welcome {{ user.profile }} to your profile.</h1>
-          <ul>
+          <ul class="circle--group--list">
             <li>First Name: {{ user.profile.first_name }}</li>
             <li>Last Name: {{ user.profile.last_name }}</li>
             <li><a href="{% url 'accounts:view_profile' pk=user.pk %}">View Full Profile</a></li>
-            <img class="" src="{{ user.profile.avatar.url }}">
           </ul>
         {% else %}
           <h1>Welcom {{ user }}!</h1>
-          <p>Create a profile to view.</p>
+          <p>Create a profile to view <a href="{% url 'accounts:create_profile' %}">here.</a></p>
         {% endif %}
       {% endif %}
     </div>

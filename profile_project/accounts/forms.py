@@ -19,12 +19,6 @@ class ProfileForm(forms.ModelForm):
             'avatar'
         ]
 
-    class Media:
-        js = (
-            'js/autogrow.js',
-            'js/global.js'
-        )
-
     def clean(self):
         cleaned_data = super().clean()
         email = cleaned_data.get('email')
