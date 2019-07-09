@@ -9,6 +9,13 @@ from . import forms
 from . import models
 
 
+def retrieve_profile(request, pk):
+    """This function retrieves the profile from the user."""
+    user = get_object_or_404(models.User, pk=pk)
+    profile = get_object_or_404(models.Profile, user=user)
+    return profile
+
+
 def sign_in(request):
     """View to let the user sign in."""
     form = AuthenticationForm()
@@ -51,7 +58,7 @@ def sign_up(request):
                 request,
                 "You're now a user! You've been signed in, too."
             )
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('accounts:create_profile'))
     return render(request, 'accounts/sign_up.html', {'form': form})
 
 
@@ -73,21 +80,20 @@ def create_profile(request):
             post.user = request.user
             post.save()
             messages.success(request, 'Profile added!')
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('accounts:view_profile',
+                                                kwargs={'pk': request.user.pk}))
     return render(request, 'accounts/profile_form.html', {'form': form})
 
 
 def view_profile(request, pk):
     """View to let the user view the full details of there profile."""
-    user = get_object_or_404(models.User, pk=pk)
-    profile = get_object_or_404(models.Profile, user=user)
+    profile = retrieve_profile(request, pk)
     return render(request, 'accounts/view_profile.html', {'profile': profile})
 
 
 def edit_profile(request, pk):
     """View that allows the user to edit there profile."""
-    user = get_object_or_404(models.User, pk=pk)
-    profile = get_object_or_404(models.Profile, user=user)
+    profile = retrieve_profile(request, pk)
     form = forms.ProfileForm(instance=profile)
 
     if request.method == 'POST':
