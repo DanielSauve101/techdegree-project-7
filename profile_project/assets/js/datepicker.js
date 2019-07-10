@@ -1,5 +1,3 @@
-<script>
-   $(function() {
-      $( "#date_of_birth" ).datepicker();
-   });
-</script>
+$(function() {
+  $( "#date_of_birth" ).datepicker();
+});
