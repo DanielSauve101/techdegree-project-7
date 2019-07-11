@@ -32,15 +32,31 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
             integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
             crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js'
+            referrerpolicy="origin"></script>
     <script type="text/javascript"
             src="{% static "js/autogrow.js" %}"></script>
     <script type="text/javascript" src="{% static "js/global.js" %}"></script>
 
-    <!-- Javascript for datepicker-->
+    <!-- Javascript for datepicker from https://api.jqueryui.com/datepicker/-->
     <script>
        $(function() {
           $( "#datepicker" ).datepicker();
        });
+    </script>
+
+    <!-- Javascript for texteditor from https://www.tiny.cloud/-->
+    <script>
+    tinymce.init({
+      selector: '#mytextarea',
+      height: 250,
+      menubar: false,
+      toolbar: 'undo redo | formatselect | bold underline italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
+      content_css: [
+        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+        '//www.tiny.cloud/css/codepen.min.css'
+      ]
+    });
     </script>
 
 

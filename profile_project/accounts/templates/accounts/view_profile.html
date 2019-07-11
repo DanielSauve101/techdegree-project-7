@@ -10,7 +10,7 @@
     <li>Last Name: {{ profile.last_name }}</li>
     <li>Email: {{ profile.email }}</li>
     <li>Date of Birth: {{ profile.date_of_birth }}</li>
-    <li>Biography: {{ profile.bio }}</li>
+    <li>Biography: {{ profile.bio|safe }}</li>
     <img class="circle--primary--avatar" src="{{ profile.avatar.url }}">
   </ul>
 </div>

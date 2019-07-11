@@ -5,7 +5,7 @@ from . import models
 
 class ProfileForm(forms.ModelForm):
     verify_email = forms.EmailField(label="Verify email:")
-    bio = forms.CharField(widget=forms.Textarea, min_length=10)
+    bio = forms.CharField(widget=forms.Textarea(attrs={'id': 'mytextarea'}), min_length=10)
 
     class Meta:
         model = models.Profile
