@@ -1,6 +1,3 @@
-from PIL import Image
-import os
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import (AuthenticationForm, UserCreationForm,
@@ -129,14 +126,3 @@ def edit_password(request, pk):
             )
             return HttpResponseRedirect(reverse('home'))
     return render(request, 'accounts/edit_password.html', {'form': form})
-
-
-size_300 = (300, 300)
-
-for f in os.listdir('media/images'):
-    if f.endswith('.jpg'):
-        i = Image.open('media/images/' + f)
-        file_name, file_ext = os.path.splitext(f)
-
-        i.thumbnail(size_300)
-        i.save('media/images/thumbnails/{}_300.{}'.format(file_name, file_ext))

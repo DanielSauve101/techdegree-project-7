@@ -18,6 +18,7 @@ class ProfileForm(forms.ModelForm):
             'bio',
             'avatar'
         ]
+        widgets = {'date_of_birth': forms.DateInput(attrs={'id': 'datepicker'})}
 
     def clean(self):
         cleaned_data = super().clean()
