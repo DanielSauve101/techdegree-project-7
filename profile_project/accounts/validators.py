@@ -69,15 +69,3 @@ class SymbolValidator(object):
             "Your password must contain at least 1 symbol: " +
             "()[]{}|\`~!@#$%^&*_-+=;:'\",<>./?"
         )
-
-
-class ContainUserNameValidator(object):
-    def validate(self, password, user=None):
-        if user.username in password:
-            raise ValidationError(
-                _("Your password may not contain the user name: "),
-                code='password_contains_username',
-            )
-
-    def get_help_text(self):
-        return _("Your password may not contain the user name: ")

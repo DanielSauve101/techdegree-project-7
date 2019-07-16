@@ -108,9 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'accounts.validators.DuplicatePasswordValidator',
     },
-    {
-        'NAME': 'accounts.validators.ContainUserNameValidator',
-    },
 ]
 
 

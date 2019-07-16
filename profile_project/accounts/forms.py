@@ -4,7 +4,7 @@ from . import models
 
 
 class ProfileForm(forms.ModelForm):
-    verify_email = forms.EmailField(label="Verify email:")
+    verify_email = forms.EmailField(label='Verify email: ')
     bio = forms.CharField(widget=forms.Textarea(attrs={'id': 'mytextarea'}), min_length=10)
 
     class Meta:
@@ -27,4 +27,4 @@ class ProfileForm(forms.ModelForm):
 
         if email != verify:
             raise forms.ValidationError(
-                "Both email fields are required to match.")
+                'Both email fields are required to match.')
