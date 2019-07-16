@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import PasswordChangeForm
 
 from . import models
 
@@ -28,3 +29,14 @@ class ProfileForm(forms.ModelForm):
         if email != verify:
             raise forms.ValidationError(
                 'Both email fields are required to match.')
+
+
+class NewPasswordForm(PasswordChangeForm):
+    def clean_new_password(self):
+        new_password = self.cleaned_data.get('new_password1')
+
+        if self.user.first_name in new_password:
+            raise forms.ValidationError(
+                'New password cannot contain the user name or parts of the' +
+                'user’s full name, such as their first name'
+            )

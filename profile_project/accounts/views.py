@@ -1,7 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import (AuthenticationForm, UserCreationForm,
-                                       PasswordChangeForm)
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -109,10 +108,10 @@ def edit_profile(request, pk):
 def edit_password(request, pk):
     """View that lets the user edit there password."""
     user = get_object_or_404(models.User, pk=pk)
-    form = PasswordChangeForm(user)
+    form = forms.NewPasswordForm(user)
 
     if request.method == 'POST':
-        form = PasswordChangeForm(user, data=request.POST)
+        form = forms.NewPasswordForm(user, data=request.POST)
         if form.is_valid():
             form.save()
             user = authenticate(
