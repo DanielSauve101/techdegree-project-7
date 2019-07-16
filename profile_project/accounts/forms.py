@@ -32,11 +32,13 @@ class ProfileForm(forms.ModelForm):
 
 
 class NewPasswordForm(PasswordChangeForm):
-    def clean_new_password(self):
+    def clean_new_password1(self):
         new_password = self.cleaned_data.get('new_password1')
+        print('New password:', new_password)
 
         if self.user.first_name in new_password:
             raise forms.ValidationError(
-                'New password cannot contain the user name or parts of the' +
+                'New password cannot contain the user name or parts of the ' +
                 'user’s full name, such as their first name'
             )
+        return new_password
