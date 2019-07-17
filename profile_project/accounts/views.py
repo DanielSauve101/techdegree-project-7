@@ -116,7 +116,7 @@ def edit_password(request, pk):
             form.save()
             user = authenticate(
                 username=user.username,
-                password=form.cleaned_data['new_password']
+                password=form.cleaned_data['new_password1']
             )
             login(request, user)
             messages.success(
