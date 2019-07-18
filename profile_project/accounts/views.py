@@ -94,7 +94,8 @@ def view_profile(request, pk):
 def edit_profile(request, pk):
     """View that allows the user to edit there profile."""
     profile = retrieve_profile(request, pk)
-    form = forms.ProfileForm(instance=profile, initial={'verify_email': profile.email})
+    form = forms.ProfileForm(instance=profile,
+                             initial={'verify_email': profile.email})
 
     if request.method == 'POST':
         form = forms.ProfileForm(request.POST, request.FILES, instance=profile)
