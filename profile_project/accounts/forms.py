@@ -36,9 +36,11 @@ class NewPasswordForm(PasswordChangeForm):
         new_password = self.cleaned_data.get('new_password1')
         print('New password:', new_password)
 
-        if self.user.profile.first_name.lower() in new_password.lower():
+        if (self.user.profile.first_name.lower() in new_password.lower()
+                or self.user.profile.last_name.lower() in new_password.lower()
+                or self.user.username.lower() in new_password.lower()):
             raise forms.ValidationError(
                 'New password cannot contain the user name or parts of the ' +
-                'user’s full name, such as their first name.'
+                'user’s full name, such as their first or last name.'
             )
         return new_password
